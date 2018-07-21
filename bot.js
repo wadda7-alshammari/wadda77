@@ -163,13 +163,13 @@ client.on('message', message => {
 
 
 
-
-client.on('voiceStateUpdate', (old, now) => {
-  const channel = client.channels.get('470095592228388865');
-  const currentSize = channel.guild.members.filter(m => m.voiceChannel).size;
-  const size = channel.name.match(/\[\s(\d+)\s\]/);
-  if (!size) return channel.setName(`Voice Online: ${currentSize}`);
-  if (currentSize !== size) channel.setName(`Voice Online: ${currentSize}`);
+client.on("message", async function(message)  {
+let voiceMembers = message.guild.channels.get('470095592228388865');
+if(message.content.startsWith(prefix + "voice")) {
+    voiceMembers.sendMessage(`**الاعضاء المتواجدون حاليا : ${message.guild.members.filter(member => member.voiceChannel).size}**`);
+    voiceMembers.sendMessage('```\n'+message.guild.members.filter(member => member.voiceChannel).map(m => m.user.tag).join('\n') + '```');
+    
+}
 });
 
 
