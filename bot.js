@@ -67,6 +67,85 @@ client.on('message', message => {
 
 
 
+client.on('voiceStateUpdate', (old, now) => {
+  const channel = client.channels.get('470095592228388865');
+  const currentSize = channel.guild.members.filter(m => m.voiceChannel).size;
+  const size = channel.name.match(/\[\s(\d+)\s\]/);
+  if (!size) return channel.setName(`Voice Online: ${currentSize}`);
+  if (currentSize !== size) channel.setName(`Voice Online: ${currentSize}`);
+});
+
+
+
+
+
+
+
+
+
+  client.on("message", message => {
+    var prefix = "~";
+ 
+            var args = message.content.substring(prefix.length).split(" ");
+            if (message.content.startsWith(prefix + "clear")) {
+   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('⚠ | **لا يوجد لديك صلاحية لمسح الشات**');
+        var msg;
+        msg = parseInt();
+      
+      message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
+      message.channel.sendMessage("", {embed: {
+        title: "Done | تــم مسح الشات",
+        color: 0x06DF00,
+        description: "تم مسح الرسائل ",
+        footer: {
+          text: "©zabhm"
+        }
+      }}).then(msg => {msg.delete(30000)});
+                          }
+
+     
+}); 
+
+
+
+
+
+
+
+
+client.on("message", message => {
+
+            if (message.content.startsWith(prefix + "bc")) {
+                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+  let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' '); 
+  message.guild.members.filter(m => m.presence.status !== 'offline').forEach(m => {
+ m.send(`${argresult}\n ${m}`);
+})
+ message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` : عدد الاعضاء المستلمين`); 
+ message.delete(); 
+};     
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
